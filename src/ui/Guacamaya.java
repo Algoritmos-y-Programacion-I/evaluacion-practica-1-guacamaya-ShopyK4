@@ -51,6 +51,9 @@ public class Guacamaya {
             System.out.println("6. Salir");
             System.out.println("\nDigite la opcion a ejecutar");
             int opcion = reader.nextInt();
+            double ventasTotalesPromedio = calcularVentasTotalesParaPromedio();
+            int cantidadTotal = calcularTotalUnidadesVendidas();
+            double ventasTotales = calcularVentasTotales();
 
             switch (opcion) {
                 case 1:
@@ -60,7 +63,7 @@ public class Guacamaya {
                     System.out.println("\nLa cantidad total de unidades vendidas en el dia fue de: "+calcularTotalUnidadesVendidas());
                     break;
                 case 3:
-                    System.out.println("\nEl precio promedio de las referencias de producto vendidas en el dia fue de: "+calcularPrecioPromedio());
+                    System.out.println("\nEl precio promedio de las referencias de producto vendidas en el dia fue de: "+calcularPrecioPromedio(ventasTotalesPromedio));
                     break;
                 case 4:
                     System.out.println("\nLas ventas totales (dinero recaudado) durante el dia fueron: "+calcularVentasTotales());
@@ -102,37 +105,89 @@ public class Guacamaya {
 
     }
 
+    /**
+     * Descripcion: Este metodo se encarga de solicitar los datos y llenaros en los respectivos arreglos
+     * @param:
+     * @return:
+    */
     public static void solicitarDatos(){
+    for (int i = 0; i < unidades.length; i++) { 
 
-        
-     
+            System.out.println("para la referencia #" + (i + 1) + ": " );
+            System.out.println("Digite el precio: ");
+            precios[i] = reader.nextDouble();
+            System.out.println("digite las unidades vendidas:");
+            unidades[i] = reader.nextInt();
+            reader.nextLine();     
+
+        } 
     }
 
+    /**
+     * Descripcion: Este metodo se encarga calcucular el total de las unidades vendidas sumando las cantidades de las referencias en una variable llamada cantidadTotal
+     * @param:
+     * @return:cantidadTotal
+    */
     public static int calcularTotalUnidadesVendidas(){
+        int cantidadTotal = 0;
 
-        return 0;
-
-
+        for(int i = 0; i < unidades.length; i++) {
+            cantidadTotal += unidades[i];
+        }
+        return cantidadTotal;
     }
 
-    public static double calcularPrecioPromedio(){
-
-        return 0;
-
-
+    /**
+     * Descripcion: Este metodo se encarga de hacer el promedio de el precio total de los productos y el numero de referencias
+     * @param:ventasTotales
+     * @return:promedio
+    */
+    public static double calcularPrecioPromedio(double ventasTotalesPromedio){
+        double promedio = (ventasTotalesPromedio / precios.length);
+        return promedio;
     }
 
+    /**
+     * Descripcion: Este metodo se encarga de calcular las ventasTotales
+     * multiplicando los precios por las unidades y almacenandolos en una variable ventasTotales
+     * @param:
+     * @return:ventasTotales
+    */
     public static double calcularVentasTotales(){
-
-        return 0;
-
-
+        double ventasTotales = 0;
+        for(int i = 0; i < precios.length; i++) {
+            ventasTotales += precios[i] * unidades[i];
+        }
+        return ventasTotales;
     }
 
+    /**
+     * Descripcion: Este metodo se encarga de verificar cuales fueron las referencias que superaron el limite anterior establecido por el usuario haciendo una multiplicacion
+     * entre precios y unidades y si lo supera lo guardara en la variable referenciaConLimite
+     * @param:limite
+     * @return:referenciaConLimite
+    */
     public static int consultarReferenciasSobreLimite(double limite){
-
-        return 0;
-
+        int referenciaConLimite = 0;
+        for (int i = 0; i < unidades.length; i++) {
+            if (precios[i] * unidades[i] >= limite) {
+                referenciaConLimite++;
+            }
+        }  
+        return referenciaConLimite;
     }
 
+    /**
+     * Descripcion: Este metodo se encarga de sumar unicamente los precios para ser utilizados en la tarea
+     * de calcular el promedio
+     * @param:
+     * @return:ventasTotalesPromedio
+    */
+    public static double calcularVentasTotalesParaPromedio(){
+        double ventasTotalesPromedio = 0;
+        for(int i = 0; i < precios.length; i++) {
+            ventasTotalesPromedio += precios[i];
+        }
+        return ventasTotalesPromedio;
+    }
 }
